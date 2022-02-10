@@ -39,6 +39,36 @@ router.post('/', (req, res) => {
     })
 });
 
+// POST /login
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            username: req.body.username
+        }
+    }).then((data) => {
+        if(!data) {
+            res.status(400).json({ message: 'No User found with this username.' });
+            return;
+        }
+
+        // validate the user
+        const validPassword = data.checkPassword(req.body.password)
+
+        if(!validPassword) {
+            res.status(404).json({ message: 'Invalid password.' });
+            return;
+        }
+
+        req.session.save(() => {
+            req.session.user_id = data.id,
+            req.session.username = data.username,
+            req.session.loggedIn = true;
+
+            res.json({ user: data, message: 'You have been logged in successfully.' })
+        })
+    })
+})
+
 // DELETE a user
 
 module.exports = router;
