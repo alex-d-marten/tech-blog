@@ -1,1 +1,11 @@
-<div>I am awesome!</div>
+<section class="p-3">
+    <h2>Current Blog Posts</h2>
+
+    <ol class="post-list">
+        {{#each posts as |post|}}
+        <li>
+            {{> post-info post}}
+        </li>
+        {{/each}}
+    </ol>
+</section>
