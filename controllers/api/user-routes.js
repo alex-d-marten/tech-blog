@@ -9,12 +9,24 @@ router.get('/', (req, res) => {
     })
     .then(data => res.json(data))
     .catch(err => {
-        console.error(err);
+        console.log(err);
         res.status(500).json(err);
     });
 });
 
 // GET /api/users/id
+router.get('/:id', (req, res) => {
+    User.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(data => res.json(data))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
 
 
 // POST /api/users
@@ -25,12 +37,12 @@ router.post('/', (req, res) => {
         password: req.body.password
     })
     .then(data => {
-        // req.session.save(() => {
-        //     req.session.user_id = data.id;
-        //     req.session.username = data.username;
-        //     req.session.loggedIn = true;
+        req.session.save(() => {
+            req.session.user_id = data.id;
+            req.session.username = data.username;
+            req.session.loggedIn = true;
         
-        // });
+        });
         res.json(data);
     })
     .catch(err => {
@@ -70,6 +82,19 @@ router.post('/login', (req, res) => {
 })
 
 // DELETE a user
+router.delete('/:id', (req, res) => {
+    User.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(data => res.json(data))
+    .catch(err => {
+        console.log(err)
+        res.status(500).json(err)
+    })
+
+})
 
 // logout route
 router.post('/logout', (req, res) => {
