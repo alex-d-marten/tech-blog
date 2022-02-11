@@ -67,3 +67,8 @@ header h1 a {
 .signup-form label {
     color: rgb(27, 15, 3);
 }
+
+#logout {
+    background-color: rgb(151, 206, 161);
+    color: rgb(27, 15, 3);
+}
