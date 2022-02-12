@@ -2,7 +2,6 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
-
 // homepage route
 router.get('/', (req, res) => {
     Post.findAll({
@@ -28,7 +27,6 @@ router.get('/', (req, res) => {
     })
     .then(data => {
         const posts = data.map(post => post.get({ plain: true }))
-        console.log(posts)
         res.render('homepage', { 
             posts,
             loggedIn: req.session.loggedIn 

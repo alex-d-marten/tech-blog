@@ -13,9 +13,8 @@
             <header class="p-4">
                 <nav class="row w-50 pb-4">
                     <a href="/" class="text-decoration-none col">Home</a>
-                    <a href="/dashboard" class="text-decoration-none col">Dashboard</a>
-                    {{!-- <a id="logout" class="text-decoration-none col">Logout</a> --}}
                     {{#if loggedIn}}
+                    <a href="/dashboard" class="text-decoration-none col">Dashboard</a>
                     <button type="button" id="logout" class="btn col">Logout</button>
                     {{else}}
                     <a href="/login" class="text-decoration-none col">Login</a>
