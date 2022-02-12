@@ -17,10 +17,24 @@ async function signupFormHandler(event) {
         });
         if(response.ok) {
             console.log('success')
-            document.location.replace('/login')
         } else {
             alert(response.statusText);
         }
+    }
+
+    const response = await fetch('/api/users/login', {
+        method: 'POST',
+        body: JSON.stringify({
+            username,
+            password
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if(response.ok) {
+        console.log('success')
+        document.location.replace('/')
+    } else {
+        alert(response.statusText);
     }
 }
 

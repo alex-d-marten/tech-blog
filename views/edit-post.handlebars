@@ -4,13 +4,17 @@
         Edit Your Post
     </h2>
 
-    <h3>Current Post Title: "{{post.title}}"</h3>
     <form class="edit-post-form py-3">
         <div class="py-2">
-            <input id="edit-post" name="post-title" type="text" value="{{post.title}}" />
+            Title:
+            <input id="edit-post-title" name="post-title" type="text" value="{{post.title}}" />
+        </div>
+        <div class="py-2">
+            Text:
+            <input id="edit-post-text" name="post-text" type="text" value="{{post.post_text}}" />
         </div>
         <div>
-            {{post.created_at}}
+            {{format_date post.created_at}}
             |
             <a href="/post/{{post.id}}">{{post.comments.length}} comments</a>
         </div>

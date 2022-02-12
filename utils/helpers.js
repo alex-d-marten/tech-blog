@@ -1,3 +1,5 @@
 module.exports = {
-    // could maybe put format_date, format_plural in here 
+    format_date: date => {
+        return `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()}`;
+    }
 }

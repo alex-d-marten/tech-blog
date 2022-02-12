@@ -1,10 +1,11 @@
-<articl class="post">
+<article class="post">
     <div class="title">
         <h3>{{title}}</h3>
+        <p>{{post_text}}</p>
     </div>
     <div class="meta">
-        {{created_at}}
+        {{format_date created_at}} by {{user.username}}
         |
         <a href="/post/{{id}}">{{comments.length}} Comments</a>
     </div>
-</articl>
+</article>
