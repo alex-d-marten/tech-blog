@@ -78,3 +78,7 @@ header h1 a {
     width: 400px;
     height: 200px;
 }
+
+.comment:nth-child(odd) {
+    background-color: #dcffdb;
+  }
