@@ -5,7 +5,7 @@ const { User, Post, Comment } = require('../../models');
 // GET /api/users
 router.get('/', (req, res) => {
     User.findAll({
-        // attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] }
     })
     .then(data => res.json(data))
     .catch(err => {
@@ -17,11 +17,32 @@ router.get('/', (req, res) => {
 // GET /api/users/id
 router.get('/:id', (req, res) => {
     User.findOne({
+        attributes: { exclude: ['password']},
         where: {
             id: req.params.id
-        }
+        },
+        include: [
+            {
+                model: Post,
+                attributes: ['id', 'title', 'created_at']
+            },
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'created_at'],
+                include: {
+                    model: Post,
+                    attributes: ['title']
+                }
+            }
+        ]
     })
-    .then(data => res.json(data))
+    .then(data => {
+        if(!data) {
+            res.status(404).json({ message: 'No user found with this id!' })
+            return;
+        }
+        res.json(data)
+    })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -81,6 +102,27 @@ router.post('/login', (req, res) => {
     })
 })
 
+// PUT a user
+router.put('/:id/', (req, res) => {
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(data => {
+        if(!data) {
+            res.status(404).json({ message: 'No user found with this id' })
+            return
+        }
+        res.json(data)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json(err)
+    })
+})
+
 // DELETE a user
 router.delete('/:id', (req, res) => {
     User.destroy({
@@ -88,7 +130,13 @@ router.delete('/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(data => res.json(data))
+    .then(data => {
+        if(!data) {
+            res.status(404).json({ message: 'No user found with this id'})
+            return
+        }
+        res.json(data)
+    })
     .catch(err => {
         console.log(err)
         res.status(500).json(err)
