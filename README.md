@@ -16,7 +16,7 @@ This project contains the code required to host a Tech Blog website where users 
 ---
 
 ## Application Screenshot
-![Screenshot](https://github.com/alex-d-marten/tech-blog/public/images/webpage%20screenshot.png)
+![Screenshot](https://github.com/alex-d-marten/tech-blog/blob/main/public/images/webpage%20screenshot.png)
 
 ---
 
